@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        a:link {color:green; text-decoration: none;}
+        a:visited {color:blue; text-decoration: none;}
+        a:hover  {color:blue; text-decoration:underline;}
+        a:active {color:green; text-decoration:blink;}
+        img{
+            width: auto;
+            height: auto;
+            max-width: 100%;
+            max-height: 100%;
+            vertical-align: middle;
+        }
+    </style>
+</head>
+<body>
+<form method="post" action="/gosearch/">
+    <div style="background-color: #fafafa; width: 110%; height: 100px; margin-top: -10px; margin-left: -10px;
+    float: left">
+        <input type="search" style="width: 37%; height: 35%;
+        margin-left: 10%; margin-top: 20px; float: left" name="searchtxt">
+        <input type="submit" style="background-color: #3385ff; width: 6%; height: 35%;
+        margin-top: 20px; float: left; border-width: 0 0 0 0; color: #fff;
+        font-size: medium" value="搜   索">
+    </div>
+    <div style="width: 76%; height: fit-content; margin-left: 12%; float: left">
+        {% for item in searchtxt %}
+            <!--<div style="width: 100%; height: fit-content; border: 1px solid #ccc; margin-bottom: 5px; float: left">
+                <a href="{{ item.url }}">{{ item.label }}</a><br>
+                <p style="font-size: 10pt; color: #85cc99">{{ item.url }}</p>
+                <p>作者：{{ item.writer }}</p>
+                <p>{{ item.abstract }}</p>
+            </div>-->
+            <table style="width: 48%; height: 360px; border: 1px solid #ccc;
+            margin: 5px 1% 5px 1%; float: left; box-shadow: 0 3px 8px #ccc; font-size: 9pt">
+                <tr style="width: 100%; height: 145px; border: 1px solid #ccc;">
+                    <td style="width: 70%; text-align: center; float: left">
+                        <a href="{{ item.url }}">
+                            <h3 style="font-size: 15pt">{{ item.label }}</h3>
+                        </a><br>
+                    </td>
+
+                    <td style="width: 28%; height: 145px; float: left; text-align: center;">
+                        <img src="{{ item.picture }}">
+                    </td>
+                </tr>
+                <tr style="width: 100%; border: 1px solid #ccc;">
+                    <td style="padding: 5px 10px 5px 10px; width: 100%; border: 1px solid #ccc;
+                    border-width: 1px 0 0 0; color: #444">
+                        <p>{{ item.abstract }}</p>
+                        <p><b>作者：</b>{{ item.writer }}</p>
+                        <p><b>主角：</b>{{ item.staring }}</p>
+                        <p><b>类型：</b>{{ item.style }}</p>
+                    </td>
+                </tr>
+            </table>
+        {% endfor %}
+    </div>
+    <!--<div style="width: 43%; height: 100px; margin-left: 5%; float: left"></div>-->
+</form>
+</body>
+</html>
