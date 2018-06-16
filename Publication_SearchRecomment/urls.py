@@ -19,7 +19,7 @@ from PublicationSR import views
 from django.conf.urls import url
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('index/', views.index),
     url(r'^search/$', views.search),
-    url(r'^gosearch/$', views.go_search)# 卧槽，修改一下
+    url(r'^gosearch/$', views.go_search)
 ]
