@@ -62,14 +62,12 @@ def get_data(html_text):
         data = body.find('div', {'class': 'basic-info cmn-clearfix'})  # 找到class为basic-info cmn-clearfix的div
         dl = data.find_all('dl')  # 获取dl部分
 
-        print(len(dl))
         for _dl in dl:
             dd = _dl.find_all('dd')  # 获取所有的dd
             dt = _dl.find_all('dt')
 
             for index in range(len(dd)):
                 propertyname = str(dt[index].string)
-                print(propertyname)
                 content = get_contentbyindex(index, dd)
                 if propertyname == "编    剧" or propertyname == "作    者":
                     # item["作者"] = dd[index].string.replace('\n', '')

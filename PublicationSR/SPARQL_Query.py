@@ -1,8 +1,23 @@
 ﻿# coding: UTF-8
 from SPARQLWrapper import SPARQLWrapper, JSON
 from PublicationSR.pachong import get_infor
+from PublicationSR.langconv import *
+
+# 转换繁体到简体
+def cht_to_chs(line):
+    line = Converter('zh-hans').convert(line)
+    line.encode('utf-8')
+    return line
+
+# 转换简体到繁体
+def chs_to_cht(line):
+    line = Converter('zh-hant').convert(line)
+    line.encode('utf-8')
+    return line
 
 def get_content_list(searchtxt):
+    # searchtxt = chs_to_cht(searchtxt)
+    # print(searchtxt)
     query_str = """
         PREFIX dbo:<http://dbpedia.org/ontology/>
         SELECT * WHERE{
@@ -49,7 +64,8 @@ def get_content_list(searchtxt):
         _item['abstract'] = abstract
 
         # 以下信息由爬虫所得
-        orter = get_infor(_item['label'])
+        print(cht_to_chs(_item['label']))
+        orter = get_infor(cht_to_chs(_item['label']))
         _item['writer'] = orter['writer']
         _item['staring'] = orter['staring']
         _item['style'] = orter['style']
