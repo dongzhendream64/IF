@@ -1,18 +1,21 @@
-from SPARQLWrapper import SPARQLWrapper, JSON, CSV
+from PublicationSR.langconv import *
 
-sparql = SPARQLWrapper("http://dbpedia.org/sparql")
-sparql.setQuery("""
-SELECT * WHERE
-{
-dbr:A_Trip_to_the_Moon dct:subject ?o .
-?movie dct:subject ?o
-FILTER (?movie != dbr:A_Trip_to_the_Moon) .
-} GROUP BY ?movie
-ORDER BY DESC(COUNT(?movie))
-LIMIT 100
+# 转换繁体到简体
+def cht_to_chs(line):
+    line = Converter('zh-hans').convert(line)
+    line.encode('utf-8')
+    return line
 
-""")
-sparql.setReturnFormat(JSON)
-result = sparql.query().convert()
+def chs_to_cht(line):
+    line = Converter('zh-hant').convert(line)
+    line.encode('utf-8')
+    return line
 
-print(result)
+line_chs = '<>123asdasd把中文字符串进行繁体和简体中文的转换'
+line_cht = '<>123asdasd把中文字符串進行繁體和簡體中文的轉換'
+
+ret_chs = "%s\n" % cht_to_chs(line_cht)
+ret_cht = "%s\n" % chs_to_cht(line_chs)
+
+print("chs='%s'", ret_chs)
+print("cht='%s'", ret_cht)

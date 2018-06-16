@@ -16,17 +16,19 @@ def chs_to_cht(line):
     return line
 
 def get_content_list(searchtxt):
-    # searchtxt = chs_to_cht(searchtxt)
-    # print(searchtxt)
     query_str = """
         PREFIX dbo:<http://dbpedia.org/ontology/>
         SELECT * WHERE{
-            ?url rdf:type<http://dbpedia.org/ontology/Film>;
-            rdfs:label ?label;
+            ?url rdfs:label ?label;
             foaf:name ?name;
             dbo:wikiPageID ?wikiPageID;
             dbo:abstract ?abstract
             OPTIONAL{?url dbo:writer ?writer}
+            {?url rdf:type<http://dbpedia.org/ontology/Film>}
+            UNION
+            {?url rdf:type<http://dbpedia.org/ontology/Book>}
+            UNION
+            {?url rdf:type<http://dbpedia.org/ontology/Game>}
             filter regex(str(?label), '""" + searchtxt + "')}"
     sparql = SPARQLWrapper("http://dbpedia.org/sparql")
     sparql.setQuery(query_str)
@@ -65,7 +67,8 @@ def get_content_list(searchtxt):
 
         # 以下信息由爬虫所得
         print(cht_to_chs(_item['label']))
-        orter = get_infor(cht_to_chs(_item['label']))
+        _item['label'] = cht_to_chs(_item['label'])
+        orter = get_infor(_item['label'])
         _item['writer'] = orter['writer']
         _item['staring'] = orter['staring']
         _item['style'] = orter['style']
