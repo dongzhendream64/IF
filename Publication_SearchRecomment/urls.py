@@ -21,5 +21,6 @@ from django.conf.urls import url
 urlpatterns = [
     path('index/', views.index),
     url(r'^search/$', views.search),
-    url(r'^gosearch/$', views.go_search)
+    url(r'^gosearch/$', views.go_search),
+    url(r'^RecommentAndView', views.rec_view)
 ]

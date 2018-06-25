@@ -2,6 +2,7 @@
 from SPARQLWrapper import SPARQLWrapper, JSON
 from PublicationSR.pachong import get_infor
 from PublicationSR.langconv import *
+from PublicationSR.recomment import film_recommend
 
 # 转换繁体到简体
 def cht_to_chs(line):
@@ -65,9 +66,15 @@ def get_content_list(searchtxt):
             abstract = str(abstract)[0:150] + "..."
         _item['abstract'] = abstract
 
-        # 以下信息由爬虫所得
         print(cht_to_chs(_item['label']))
         _item['label'] = cht_to_chs(_item['label'])
+
+        # 获取推荐信息
+        recomment_info = film_recommend(_item['name'], 1)
+        _item['recomment_info'] = recomment_info
+        _item['reccount'] = len(recomment_info)
+
+        # 以下信息由爬虫所得
         orter = get_infor(_item['label'])
         _item['writer'] = orter['writer']
         _item['staring'] = orter['staring']
