@@ -55,14 +55,7 @@
     <script type="text/javascript">
         // 基于准备好的dom，初始化echarts实例
         var myChart = echarts.init(document.getElementById('chart'));
-
-        var namelist  = []
         // 指定图表的配置项和数据
-        var json = [
-                {value:30,name:'高圆圆'},
-                {value:26,name:'赵丽颖'},
-                {value:24,name:'江莱'}
-        ];
         var chartjson = [];
         var chartname = [];
         {% for item in chartjson %}
