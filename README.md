@@ -1,9 +1,9 @@
-<b>开发环境</b><br>
-    操作系统：Windows10 64位
-    开发工具：Pycharm 2018
-    系统框架：Django 2.2
-    SPARQL查询库：SPARQLWrapper
-    可视化工具：Echarts
+<b>开发环境</b><br><br>
+    操作系统：Windows10 64位<br>
+    开发工具：Pycharm 2018<br>
+    系统框架：Django 2.2<br>
+    SPARQL查询库：SPARQLWrapper<br>
+    可视化工具：Echarts<br>
 
-<b>简介</b><br>
+<b>简介</b><br><br>
     系统共有两个页面。用户在首页搜索框中输入要搜索的出版物，点击搜索，系统将罗列出符合搜索条件的所有出版物信息，包括：出版物名称、描述、海报、作者、主角和类型，并且可以链接到该出版物在dbpedia网站的具体描述页面；第二个页面会对某个出版物进行Top10推荐，并可视化展示各出版物与被推荐出版物共享类型数目所占的比例。
