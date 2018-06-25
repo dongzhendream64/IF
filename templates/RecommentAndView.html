@@ -9,10 +9,13 @@
         a:hover  {color:#555555; text-decoration:underline;}
         a:active {color:#555555; text-decoration:blink;}
     </style>
+    {% load static %}
+    <!-- 引入 echarts.js -->
+    <script src="{% static 'echarts.min.js' %}"></script>
 </head>
 <body>
-    <div style="width: 70%; margin-top: 60px; margin-left: 15%;">
-        <div style="width: 30%">
+    <div style="width: 86%; margin-top: 60px; margin-left: 7%;">
+        <div style="width: 25%; float: left">
             <table style="border: 1px solid #eeeeee; width: 100%; font-size: 10pt; line-height: 20px">
                 {% for item in pubreclist %}
                     {% if item.color == 0 %}
@@ -46,6 +49,75 @@
                 {% endfor %}
             </table>
         </div>
+        <div id="chart" style="width: 70%; margin-left: 4%; height: 520px; float: left">
+        </div>
     </div>
+    <script type="text/javascript">
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('chart'));
+
+        var namelist  = []
+        // 指定图表的配置项和数据
+        var json = [
+                {value:30,name:'高圆圆'},
+                {value:26,name:'赵丽颖'},
+                {value:24,name:'江莱'}
+        ];
+        var chartjson = [];
+        var chartname = [];
+        {% for item in chartjson %}
+            chartjson.push({value:{{ item.value }}, name: '{{ item.name }}'});
+            chartname.push('{{ item.name }}');
+        {% endfor %}
+
+        var option = {
+            title : {
+                text: '推荐出版物共享类型数',
+                x:'47%'
+            },
+            tooltip : {
+                trigger: 'item',
+                formatter: "{a} <br/>{b} : {c} 个共同类型"
+            },
+            legend: {
+                orient : 'vertical',
+                x : 'left',
+                data:chartname
+            },
+            toolbox: {
+                show : true,
+                feature : {
+                    mark : {show: true},
+                    dataView : {show: true, readOnly: false},
+                    magicType : {
+                        show: true,
+                        type: ['pie', 'funnel'],
+                        option: {
+                            funnel: {
+                                x: '25%',
+                                width: '50%',
+                                funnelAlign: 'left',
+                                max: 1548
+                            }
+                        }
+                    },
+                    restore : {show: true},
+                    saveAsImage : {show: true}
+                }
+            },
+            calculable : true,
+            series : [
+                {
+                    name:'出版物',
+                    type:'pie',
+                    radius : '55%',//饼图的半径大小
+                    center: ['60%', '60%'],//饼图的位置
+                    data:chartjson
+                }
+            ]
+        };
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+    </script>
 </body>
 </html>

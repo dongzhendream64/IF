@@ -24,4 +24,15 @@ def rec_view(req):
     pubname = req.GET.get('pubname')
     # 获取推荐信息
     recomment_info = film_recommend(pubname, 10)
-    return render_to_response('RecommentAndView.html', {'pubreclist': recomment_info})
+    chartjson = []
+    chartname = []
+    for item in recomment_info:
+        chartjsondic = {}
+        chartjsondic['value'] = item['sum']
+        chartjsondic['name'] = item['name']
+        chartjson.append(chartjsondic)
+        chartname.append(item['name'])
+    return render_to_response('RecommentAndView.html',
+                              {'pubreclist': recomment_info,
+                               'chartjson': chartjson,
+                               'chartname': chartname})
